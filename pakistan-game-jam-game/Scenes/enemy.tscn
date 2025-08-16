@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhmao7v4heakm"]
+
+[ext_resource type="Script" uid="uid://bjc0e71cjnpli" path="res://Scripts/enemy.gd" id="1_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://dujidj7uqcp3n" path="res://sprites/enemy-fotor-bg-remover-20250814163419.png" id="1_hghv2"]
+[ext_resource type="Script" uid="uid://ktekirmjwbqa" path="res://Scripts/enemy_gun.gd" id="3_287tu"]
+[ext_resource type="Texture2D" uid="uid://dei7b6p15vdyw" path="res://sprites/gun1-fotor-bg-remover-20250814161911.png" id="3_afpow"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]
+size = Vector2(209, 288)
+
+[node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(0.32, 0.28)
+script = ExtResource("1_1f0kj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hghv2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(42.5, 16)
+shape = SubResource("RectangleShape2D_1f0kj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.75
+
+[node name="GUN" type="Node2D" parent="."]
+script = ExtResource("3_287tu")
+
+[node name="Sprite2D" type="Sprite2D" parent="GUN"]
+position = Vector2(165.625, 3.57143)
+scale = Vector2(0.525, 0.649589)
+texture = ExtResource("3_afpow")
+flip_h = true
+
+[node name="SpawnPoints" type="Node2D" parent="GUN"]
+position = Vector2(300, -14.2857)
+
+[connection signal="timeout" from="Timer" to="GUN" method="_on_timer_timeout"]
