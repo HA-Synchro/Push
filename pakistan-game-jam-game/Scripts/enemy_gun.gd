@@ -18,10 +18,6 @@ func _physics_process(delta: float) -> void:
 		get_parent().add_child(bullet)
 		
 
-
-
-
-
 func _on_timer_timeout() -> void:
 	bullet.queue_free() # Remove bullet from the scene after the timer times out
 	bullet = null # Clear the bullet variable

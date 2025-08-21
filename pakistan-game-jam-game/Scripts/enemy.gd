@@ -1,5 +1,5 @@
 extends CharacterBody2D
-@onready var target: CharacterBody2D = $"../CharacterBody2D"
+@onready var target = $"../PlayerGoal"
 
 
 var speed = 50
@@ -21,3 +21,8 @@ func _physics_process(delta: float) -> void:
 	var direction = position.direction_to(target.global_position).normalized()
 	velocity = speed * direction
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Player_Goal"):
+		print("Lose")

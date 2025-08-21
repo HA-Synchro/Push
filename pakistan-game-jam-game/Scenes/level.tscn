@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsus6crkrnx8"]
+[gd_scene load_steps=9 format=3 uid="uid://dsus6crkrnx8"]
 
 [ext_resource type="Texture2D" uid="uid://de3esdhbfwr4t" path="res://sprites/bg.png" id="1_k5f4k"]
 [ext_resource type="PackedScene" uid="uid://ds4332t4tjkk8" path="res://Scenes/player.tscn" id="1_tumq0"]
+[ext_resource type="PackedScene" uid="uid://hhkmqvhtva2" path="res://Scenes/player_goal.tscn" id="4_81xng"]
+[ext_resource type="Script" uid="uid://dpmhtso72gmkk" path="res://Scripts/timer_2.gd" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://bhmao7v4heakm" path="res://Scenes/enemy.tscn" id="6_0f350"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
@@ -9,6 +11,12 @@ size = Vector2(23.5, 716)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6phgx"]
 size = Vector2(1289, 20)
+
+[sub_resource type="Environment" id="Environment_81xng"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.17
+glow_blend_mode = 1
 
 [node name="level" type="Node2D"]
 
@@ -42,3 +50,36 @@ position = Vector2(-97, -1)
 
 [node name="Enemy" parent="." instance=ExtResource("6_0f350")]
 position = Vector2(94, 274)
+
+[node name="Health" type="Label" parent="."]
+offset_left = 1056.0
+offset_top = 45.0
+offset_right = 1225.0
+offset_bottom = 115.0
+theme_override_font_sizes/font_size = 30
+text = "Health : 3"
+
+[node name="PlayerGoal" parent="." instance=ExtResource("4_81xng")]
+position = Vector2(1212, 376)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_81xng")
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="UI"]
+wait_time = 60.0
+autostart = true
+
+[node name="Timer2" type="Label" parent="UI"]
+offset_left = 524.0
+offset_top = 42.0
+offset_right = 747.0
+offset_bottom = 103.0
+theme_override_font_sizes/font_size = 30
+text = "60"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_wqkje")
+
+[connection signal="timeout" from="UI/Timer" to="UI/Timer2" method="_on_timer_timeout"]

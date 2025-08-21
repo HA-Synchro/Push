@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds4332t4tjkk8"]
+[gd_scene load_steps=7 format=3 uid="uid://ds4332t4tjkk8"]
 
 [ext_resource type="Script" uid="uid://dbfhacy3bn5d3" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://s0qohsj0jbvw" path="res://sprites/player-fotor-bg-remover-20250814161756.png" id="2_vgqql"]
@@ -6,19 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://dei7b6p15vdyw" path="res://sprites/gun1-fotor-bg-remover-20250814161911.png" id="4_vgqql"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
-size = Vector2(224.528, 25.5999)
+size = Vector2(95.2543, 25.5999)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgqql"]
+size = Vector2(48.3334, 70.5882)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(0.599999, 0.68)
 script = ExtResource("1_cvnsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.85098, 0.415686, 1)
 position = Vector2(0.250003, -0.5)
 scale = Vector2(0.235, 0.182)
 texture = ExtResource("2_vgqql")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-30, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+position = Vector2(1.66662, 1)
 scale = Vector2(0.489916, 2.73439)
 shape = SubResource("RectangleShape2D_cvnsp")
 
@@ -36,4 +40,11 @@ position = Vector2(-98, -2)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.75
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.833335, 1.47059)
+shape = SubResource("RectangleShape2D_vgqql")
+
 [connection signal="timeout" from="Timer" to="GUN" method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
